@@ -4,6 +4,7 @@ const relayController = require('./relayController')
 const { fetcher, web3 } = require('./instances')
 const { getMixers } = require('./utils')
 const mixers = getMixers()
+const config = require('../config')
 
 const app = express()
 app.use(express.json())
@@ -26,6 +27,14 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res) {
   // just for testing purposes
   res.send('This is <a href=https://tornado.cash>tornado.cash</a> Relayer service. Check the <a href=/status>/status</a> for settings')
+})
+
+app.get('/health', function (req, res) {
+  if (config.healthy) {
+    res.status(200).send('OK')
+  } else {
+    res.status(500).send()
+  }
 })
 
 app.get('/status', function (req, res) {

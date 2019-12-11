@@ -52,5 +52,6 @@ module.exports = {
   defaultGasPrice: 2,
   gasOracleUrls: ['https://ethgasstation.info/json/ethgasAPI.json', 'https://gasprice.poa.network/'],
   port: process.env.APP_PORT,
-  relayerServiceFee: Number(process.env.RELAYER_FEE)
+  relayerServiceFee: Number(process.env.RELAYER_FEE),
+  healthy: true
 }

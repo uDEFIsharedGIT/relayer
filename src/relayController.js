@@ -91,11 +91,14 @@ async function relay (req, resp) {
       console.log(`A new successfully sent tx ${txHash} for the ${recipient}`)
     }).on('error', function(e){
       config.nonce--
+      config.healthy = false
       console.error('on transactionHash error', e.message)
       return resp.status(400).json({ error: 'Proof is malformed.' })
     })
   } catch (e) {
     console.error(e, 'estimate gas failed')
+    // eslint-disable-next-line require-atomic-updates
+    config.healthy = false
     return resp.status(400).json({ error: 'Proof is malformed or spent.' })
   }
 }
